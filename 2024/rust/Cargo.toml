@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+
+members = ["day-*"]
+default-members = ["day-*"]
+
+[workspace.dependencies]
+rstest = "0.23.0"
+rstest_reuse = "0.7.0"

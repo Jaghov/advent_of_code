@@ -1,0 +1,1 @@
+/home/dandy/Documents/Coding/rust_projects/advent_of_code/2024/rust/target/debug/libday_01.rlib: /home/dandy/Documents/Coding/rust_projects/advent_of_code/2024/rust/day-01/src/lib.rs /home/dandy/Documents/Coding/rust_projects/advent_of_code/2024/rust/day-01/src/part1.rs /home/dandy/Documents/Coding/rust_projects/advent_of_code/2024/rust/day-01/src/part2.rs
