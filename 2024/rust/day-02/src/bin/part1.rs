@@ -8,21 +8,23 @@ fn part1(input: &str) -> u32 {
     input.trim().lines().fold(0, |num_safe: u32, report| {
         // Split by white-space
         let mut levels = report.split_whitespace();
-        let first_level: i32 = levels.next().unwrap().parse().unwrap();
         let mut prev_level: i32 = levels.next().unwrap().parse().unwrap();
-        let trend = match prev_level - first_level {
-            -3..=-1 => Trend::Decreasing,
-            1..=3 => Trend::Increasing,
-            _ => return num_safe,
-        };
+
+        let mut trend = None;
 
         // for each character in line, parse then compare with the next character if available
         for level in levels {
             let curr_level: i32 = level.parse().unwrap();
             let lvl_change = curr_level - prev_level;
-            match lvl_change {
-                -3..=-1 if trend == Trend::Decreasing => (),
-                1..=3 if trend == Trend::Increasing => (),
+            match (lvl_change, &trend) {
+                (-3..=-1, Some(Trend::Decreasing)) => (),
+                (1..=3, Some(Trend::Increasing)) => (),
+
+                // On first Loop check the level change trend
+                (-3..=-1, None) => trend = Some(Trend::Decreasing),
+                (1..=3, None) => trend = Some(Trend::Increasing),
+
+                // Early return out of report if trend is violated
                 _ => return num_safe,
             };
             prev_level = curr_level;
