@@ -1,4 +1,4 @@
-fn part1(input: &str) -> u32 {
+pub fn split_list(input: &str) -> (Vec<u32>, Vec<u32>) {
     let mut left: Vec<u32> = Vec::new();
     let mut right: Vec<u32> = Vec::new();
 
@@ -8,6 +8,12 @@ fn part1(input: &str) -> u32 {
         left.push(parts.next().unwrap().parse().unwrap());
         right.push(parts.next().unwrap().parse().unwrap());
     });
+    (left, right)
+}
+
+fn part1(input: &str) -> u32 {
+    let (mut left, mut right) = split_list(input);
+
     // 2*O(Nlog(k)) where k is the number of distinct entries
     left.sort_unstable();
     right.sort_unstable();
