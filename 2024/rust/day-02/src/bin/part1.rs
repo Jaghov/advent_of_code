@@ -5,9 +5,7 @@ enum Trend {
 }
 
 fn part1(input: &str) -> u32 {
-    let mut num_safe = 0;
-    // Split by line
-    'check_report: for report in input.trim().lines() {
+    input.trim().lines().fold(0, |num_safe: u32, report| {
         // Split by white-space
         let mut levels = report.split_whitespace();
         let first_level: i32 = levels.next().unwrap().parse().unwrap();
@@ -15,7 +13,7 @@ fn part1(input: &str) -> u32 {
         let trend = match prev_level - first_level {
             -3..=-1 => Trend::Decreasing,
             1..=3 => Trend::Increasing,
-            _ => continue 'check_report,
+            _ => return num_safe,
         };
 
         // for each character in line, parse then compare with the next character if available
@@ -25,14 +23,13 @@ fn part1(input: &str) -> u32 {
             match lvl_change {
                 -3..=-1 if trend == Trend::Decreasing => (),
                 1..=3 if trend == Trend::Increasing => (),
-                _ => continue 'check_report,
+                _ => return num_safe,
             };
             prev_level = curr_level;
         }
-        num_safe += 1;
-    }
 
-    num_safe
+        num_safe + 1
+    })
 }
 
 fn main() {

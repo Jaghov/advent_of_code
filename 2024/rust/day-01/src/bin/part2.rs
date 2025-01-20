@@ -34,12 +34,17 @@ pub fn split_list(input: &str) -> (Vec<u32>, Vec<u32>) {
 
 fn part2(input: &str) -> u32 {
     let (left, right) = split_list(input);
+
+    // Create Hash Table from right list
     let counts = right.into_iter().fold(HashMap::new(), |mut acc, elem| {
+        // if entry in table add one to it, else set to 1
         *acc.entry(elem).or_insert(0 as u32) += 1;
         acc
     });
 
+    // check entry from left list against hash table to calculate similarity
     left.into_iter().fold(0, |similarity, num| {
+        // if entry exists, mult against count, else mult against 0
         similarity + num * counts.get(&num).unwrap_or(&0)
     })
 }
