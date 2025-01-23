@@ -16,6 +16,7 @@ fn part1(input: &str) -> u32 {
         for level in levels {
             let curr_level: i32 = level.parse().unwrap();
             let lvl_change = curr_level - prev_level;
+
             match (lvl_change, &trend) {
                 (-3..=-1, Some(Trend::Decreasing)) => (),
                 (1..=3, Some(Trend::Increasing)) => (),
